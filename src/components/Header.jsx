@@ -21,7 +21,7 @@ const Header = () => {
        {/* Image End Here */}
 
        {/* Deliver Start Here */}
-         <div className='headerHover'>
+         <div className='headerHover hidden mdl:inline flex'>
             <LocationOnIcon/>
             <p className='text-sm text-lightText font-light flex flex-col'>
                 Deliver To{" "}
@@ -31,7 +31,7 @@ const Header = () => {
        {/* Deliver End Here */}
 
        {/* Search Start Here */}
-           <div className='h-10 rounded-md flex flex-grow relative '>
+           <div className='h-10 rounded-md hidden lgl:flex flex-grow relative '>
            <span onClick={()=>{setshowAll(!showAll)}} className='w-14 h-full flex bg-gray-200 hover:bg-gray-300 border-2 cursor-pointer duration-300 text-sm text-amazon_blue font-titleFont justify-center rounded-tl-md rounded-bl-md items-center '>All <span className=''><ArrowDropDownIcon/>
             {
                 showAll && (
@@ -57,9 +57,9 @@ const Header = () => {
        {/* Search End Here */}
 
        {/* Signin Start Here */}
-         <div className='flex flex-col items-start justify-center headerHover'>
-         <p className='text-xs text-amazon_light font-light '>Hello, Sign in</p>
-         <p className='text-sm font-semibold -mt-1 text-whiteText'>Accounts & Lists <span><ArrowDropDownIcon/></span></p>
+         <div className='hidden lgl:flex flex-col items-start justify-center headerHover'>
+         <p className='text-sm mdl:text-xs text-white mdl:text-amazon_light font-light '>Hello, Sign in</p>
+         <p className='text-sm font-semibold -mt-1 text-whiteText hidden mdl:inline-flex'>Accounts & Lists <span><ArrowDropDownIcon/></span></p>
          </div>
        
        {/* Signin End Here */}
