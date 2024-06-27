@@ -133,7 +133,7 @@ const Registration = () => {
       <div className="w-full bg-gray-100 pb-10">
         <form className="w-[370px] mx-auto flex flex-col items-center">
           <Link to="/">
-            <img className="w-32" src={logo} alt="darkLogo" />
+            {/* <img className="w-32" src={logo} alt="darkLogo" /> */}
           </Link>
           <div className="w-full border border-zinc-200 p-6">
             <h2 className="font-titleFont text-3xl font-medium mb-4">

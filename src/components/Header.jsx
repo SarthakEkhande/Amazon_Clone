@@ -58,7 +58,7 @@ const Header = () => {
        {/* Image End Here */}
 
        {/* Deliver Start Here */}
-         <div className='headerHover hidden mdl:inline flex'>
+         <div className='headerHover hidden mdl:inline '>
             <LocationOnIcon/>
             <p className='text-sm text-lightText font-light flex flex-col'>
                 Deliver To{" "}
@@ -68,19 +68,19 @@ const Header = () => {
        {/* Deliver End Here */}
 
        {/* Search Start Here */}
-           <div className='h-10 rounded-md hidden lgl:flex flex-grow relative '>
+           <div className='h-10 rounded-md hidden lgl:flex flex-grow relative'>
            <span onClick={()=>{setshowAll(!showAll)}} className='w-14 h-full flex bg-gray-200 hover:bg-gray-300 border-2 cursor-pointer duration-300 text-sm text-amazon_blue font-titleFont justify-center rounded-tl-md rounded-bl-md items-center '>All <span className=''><ArrowDropDownIcon/>
             {
                 showAll && (
                     <div>
-                        <ul className='absolute w-56 h-80 top-10 left-0 overflow-y-scroll overflow-x-hidden bg-white border-[1px]
-                         border-amazon_blue text-black p-2 flex-col gap-1 z-50
+                        <ul className='absolute w-56 h-80 top-10 left-0 overflow-y-scroll overflow-x-hidden border-[1px]
+                         border-amazon_blue text-black p-4 flex-col gap-1 z-50  m-4 font-serif font-bold bg-gray-200 
                         '>
-                            <li>Mobile Phones</li>
-                            <li>Smartwatches</li>
-                            <li>Wireless Headphones</li>
-                            <li>Digital Tvs</li>
-                            <li>Computers</li>
+                            <li className='py-2'>Mobile Phones</li>
+                            <li className='py-2'>Smartwatches</li>
+                            <li className='py-2'>Wireless Headphones</li>
+                            <li className='py-2'>Digital Tvs</li>
+                            <li className='py-2'>Computers</li>
                         </ul>
                     </div>
                 )
@@ -95,22 +95,22 @@ const Header = () => {
 
        {/* Signin Start Here */}
        <Link to='/signin'>
-         <div className='hidden lgl:flex flex-col items-start justify-center headerHover'>
+         <div className=' flex-col items-start justify-center headerHover'>
           {
             UserInfo ? (
              
                 <p className='text-sm text-gray-100  font-medium'>
-                 {UserInfo.email}
+                 {UserInfo.userName}
                  </p>
              
             ) :(
-              <p className='text-xs text-lightText font-light'>
+              <p className='text-sm text-gray-100  font-medium'>
                 Hello Sign In 
               </p>
             )
           }
          {/* <p className='text-sm mdl:text-xs text-white mdl:text-amazon_light font-light '>Hello, Sign in</p> */}
-         <p className='text-sm font-semibold -mt-1 text-whiteText hidden mdl:inline-flex'>Accounts & Lists <span><ArrowDropDownIcon/></span></p>
+         <p className='text-sm font-semibold -mt-1 text-whiteText  '>Accounts & Lists <span><ArrowDropDownIcon/></span></p>
          </div>
          </Link>
        
@@ -118,7 +118,7 @@ const Header = () => {
 
         {/* Orders Start Here */}
 
-        <div className='flex flex-col items-start justify-center headerHover'>
+        <div className='hidden lgl:flex flex-col items-start justify-center headerHover'>
             <p className='text-xs text-amazon_light font-light '>Returns</p>
             <p className='text-sm font-semibold -mt-1 text-whiteText'> & Orders</p>
         </div>

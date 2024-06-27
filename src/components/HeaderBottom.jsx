@@ -50,16 +50,16 @@ const HeaderBottom = () => {
               </p>
             )
           }
-                        </div>
-                        <ul>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
-                            <li>Home Appliances</li>
+                        </div> 
+                        <ul className='p-4 m-4 font-serif font-bold bg-gray-200 '>
+                            <li className='py-2'>Home Appliances</li>
+                            <li className='py-2'>Digital Content and Devices</li>
+                            <li className='py-2'>Shop by Category</li>
+                            <li className='py-2'>Digital Content and Devices</li>
+                            <li className='py-2'>Home Appliances</li>
+                            <li className='py-2'>Shop by Category</li>
+                            <li className='py-2'>Home Appliances</li>
+                            <li className='py-2'>Shop by Category</li>
                         </ul>
                           <span onClick={()=>{setsidebar(false)}} className='cursor-pointer absolute top-0 left-[360px] w-10 h-10 text-black flex items-center justify-center border bg-gray-200 hover:bg-red-500 hover:text-white duration-300'>
                     <CloseIcon/>

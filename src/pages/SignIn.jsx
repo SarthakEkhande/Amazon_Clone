@@ -90,7 +90,7 @@ const SignIn = () => {
           (
             <form className="w-[350px] mx-auto flex flex-col items-center">
             <Link to="/">
-              <img className="w-32" src={logo} alt="darkLogo" />
+              {/* <img className="w-32 bg-gray-400 p-4" src={logo} alt="darkLogo" /> */}
             </Link>
             <div className="w-full border border-zinc-200 p-6">
               <h2 className="font-titleFont text-3xl font-medium mb-4">
