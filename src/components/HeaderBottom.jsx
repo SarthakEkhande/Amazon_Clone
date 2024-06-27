@@ -3,8 +3,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import {motion} from "framer-motion"
+import { useSelector } from 'react-redux';
 
 const HeaderBottom = () => {
+  const UserInfo=useSelector((state)=>state.amazon.userInfo)
     const ref=useRef();
     const[Sidebar,setsidebar]=useState(false)
     useEffect(()=>{
@@ -35,7 +37,19 @@ const HeaderBottom = () => {
                     <motion.div ref={ref} initial={{x:-500,opacity:0}} animate={{x:0, opacity:1}} transition={{duration:.2}} className='w-[80%] md:w-[350px] h-full bg-white border border-black '>
                         <div className='w-full bg-amazon_blue text-white py-2 px-6 flex items-center gap-4'>
                            <AccountCircleIcon/>
-                           <h3>Hello, Sign In</h3>
+                           {
+            UserInfo ? (
+             
+                <p className='text-sm text-gray-100  font-medium'>
+                 {UserInfo.email}
+                 </p>
+             
+            ) :(
+              <p className='text-xs text-lightText font-light'>
+                Hello Sign In
+              </p>
+            )
+          }
                         </div>
                         <ul>
                             <li>Home Appliances</li>

@@ -1,19 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { logo } from "../assets/index";
-
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { RotatingLines } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import { setuserInfo } from "../redux/amazonslice";
 const SignIn = () => {
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errEmail, setErrEmail] = useState("");
   const [errPassword, setErrPassword] = useState("");
+  const [Loading,setLoading]=useState(false)
+  const [successMsg,setsuccessMsg]=useState("")
+  const [useEmailErr,setuseEmailErr]=useState("")
+  const [userPassErr,setuserPassErr]=useState("")
   // Firebase Error
 
   // Loading State start here
 
 
   const handleEmail = (e) => {
+    
+
     setEmail(e.target.value);
     setErrEmail("");
  
@@ -32,7 +44,40 @@ const SignIn = () => {
       setErrPassword("Enter your password");
     }
     if (email && password) {
-      console.log(email,password)
+      setLoading(true)
+      // console.log(email,password)
+      signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    
+    const user = userCredential.user;
+    dispatch(setuserInfo({
+      _id:user.uid,
+      userName:user.displayName,
+      email:user.email,
+      image:user.photoURL
+    }))
+
+    console.log(user);
+    setLoading(false)
+    setsuccessMsg("Logged in Successfull welcome")
+    setTimeout(() => {
+      navigate('/')
+
+      
+    }, 2000);
+    // ...
+  })
+  .catch((error) => {
+    setLoading(false)
+    const errorCode=error.code
+    if(errorCode.includes("auth/invalid-email")){
+      setuseEmailErr("Invalid Email")
+    }
+    if(errorCode.includes("auth/wrong-password")){
+      setuseEmailErr("Invalid Password")
+    }
+      
+  });
       setEmail("")
       setPassword("")
     }
@@ -40,7 +85,10 @@ const SignIn = () => {
   return (
     <div className="w-full">
       <div className="w-full bg-gray-100 pb-10">     
-          <form className="w-[350px] mx-auto flex flex-col items-center">
+         {
+          successMsg ?  <div></div>:
+          (
+            <form className="w-[350px] mx-auto flex flex-col items-center">
             <Link to="/">
               <img className="w-32" src={logo} alt="darkLogo" />
             </Link>
@@ -59,12 +107,12 @@ const SignIn = () => {
                     className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                     type="email"
                   />
-                  {errEmail && (
+                  {useEmailErr && (
                     <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
                       <span className="italic font-titleFont font-extrabold text-base">
                         !
                       </span>
-                      {errEmail}
+                      {useEmailErr}
                     </p>
                   )}
                  
@@ -77,12 +125,12 @@ const SignIn = () => {
                     className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                     type="password"
                   />
-                  {errPassword && (
+                  {userPassErr && (
                     <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
                       <span className="italic font-titleFont font-extrabold text-base">
                         !
                       </span>
-                      {errPassword}
+                      {userPassErr}
                     </p>
                   )}
                  
@@ -93,6 +141,22 @@ const SignIn = () => {
                 >
                   Continue
                 </button>
+                {
+                    Loading &&(
+                        <div className="flex justify-center ">
+                            <RotatingLines
+                              visible={true}
+                              height="96"
+                              width="50"
+                              color="grey"
+                              strokeWidth="5"
+                              animationDuration="0.75"
+                              ariaLabel="rotating-lines-loading"
+                              wrapperStyle={{}}
+                              wrapperClass=""
+                              />
+                        </div>
+                    )}
                
               </div>
               <p className="text-xs text-black leading-4 mt-4">
@@ -118,6 +182,8 @@ const SignIn = () => {
               </button>
             </Link>
           </form>
+          )
+         }
       
       </div>
       <div className="w-full bg-gradient-to-t from-white via-white to-zinc-200 flex flex-col gap-4 justify-center items-center py-10">

@@ -7,6 +7,7 @@ import TopFooter from './components/footer/TopFooter';
 import AddtoCart from './pages/AddtoCart';
 import SignIn from './pages/SignIn';
 import Registration from './pages/Registration';
+import firebaseConfig from './firebase.config';
 
 const Layout = () => {
   return (

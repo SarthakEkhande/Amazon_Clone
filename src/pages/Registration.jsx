@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { logo } from "../assets/index";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { RotatingLines } from "react-loader-spinner";
 
 const Registration = () => {
+    const navigate=useNavigate()
+    const auth = getAuth();
   const [clientName, setClientName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +18,9 @@ const Registration = () => {
   const [errEmail, setErrEmail] = useState("");
   const [errPassword, setErrPassword] = useState("");
   const [errCPassword, setErrCPassword] = useState("");
+  const [firebaseErr,setfirebaseErr]=useState("")
+  const [Loading,setLoading]=useState(false)
+  const [successMsg,setsuccessMsg]=useState("")
   // Loading State start
 
 
@@ -51,6 +58,7 @@ const Registration = () => {
     }
     if (!email) {
       setErrEmail("Enter your email");
+      setfirebaseErr("")
     } else {
       if (!emailValidation(email)) {
         setErrEmail("Enter a valid email");
@@ -80,13 +88,44 @@ const Registration = () => {
       cPassword &&
       cPassword === password
     ) {
-        console.log(clientName.email,password);
+        // console.log(auth,email,password);
+        setLoading(true)
+         
+        createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    updateProfile(auth.currentUser,{
+        displayName:clientName,
+        photoURL:
+        "https://avatars.githubusercontent.com/u/81583494?s=400&u=35e93d78611b0d9e2b097e15510ebbe3a864fde6&v=4"
+    })
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+    setLoading(false)
+    setsuccessMsg("Account Created Successfully")
+    setTimeout(() => {
+        navigate('/signin')
+        
+    }, 3000);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    // const errorMessage = error.message;
+    console.log(error);
+    if(errorCode.includes("auth/email-already-in-use")){
+        setfirebaseErr("Email Already in use Try another one")
+    }
+        console.log(errorCode,);
+    // ..
+  });
       // =========== Firebase Registration End here ===============
-      setClientName("");
-      setEmail("");
-      setPassword("");
-      setCPassword("");
-      setErrCPassword("");
+       setClientName("");
+       setEmail("");
+       setPassword("");
+       setCPassword("");
+       setErrCPassword("");
+       setfirebaseErr("")
     }
   };
   return (
@@ -128,12 +167,12 @@ const Registration = () => {
                   type="email"
                   className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                 />
-                {errEmail && (
+                {firebaseErr && (
                   <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
                     <span className="italic font-titleFont font-extrabold text-base">
                       !
                     </span>
-                    {errEmail}
+                    {firebaseErr}
                   </p>
                 )}
                 
@@ -181,6 +220,28 @@ const Registration = () => {
               >
                 Continue
               </button>
+                {
+                    Loading &&(
+                        <div className="flex justify-center ">
+                            <RotatingLines
+                              visible={true}
+                              height="96"
+                              width="50"
+                              color="grey"
+                              strokeWidth="5"
+                              animationDuration="0.75"
+                              ariaLabel="rotating-lines-loading"
+                              wrapperStyle={{}}
+                              wrapperClass=""
+                              />
+                        </div>
+                    )}
+                    {
+                        successMsg &&(
+                            <div>{successMsg}</div>
+                        )
+                    }
+
             </div>
             <p className="text-xs text-black leading-4 mt-4">
               By Continuing, you agree to Amazon's{" "}
@@ -192,7 +253,7 @@ const Registration = () => {
                 Already have an account?{" "}
                 <Link to="/signin">
                   <span className="text-xs text-blue-600 hover:text-orange-600 hover:underline underline-offset-1 cursor-pointer duration-100">
-                    Sign in{" "}
+                    signin{" "}
                     <span>
                       <ArrowRightIcon />
                     </span>
