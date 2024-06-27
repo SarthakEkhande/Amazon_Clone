@@ -2,12 +2,16 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import GradeIcon from '@mui/icons-material/Grade';
+import { useDispatch } from 'react-redux';
+import { addTocart } from '../redux/amazonslice';
 
 const Products = () => {
+
+  const dispatch=useDispatch()
   const data = useLoaderData();
-  console.log(data);
+  // console.log(data);
   const productsdata=data.data
-  console.log(productsdata);
+  // console.log(productsdata);
     // useEffect(()=>{
     //     async function productsdata(){
     //         let data=await axios.get("https://fakestoreapiserver.vercel.app/amazonproducts")
@@ -44,7 +48,15 @@ const Products = () => {
                 <GradeIcon/>
             </div>
           </div>
-          <button className='w-full font-titleFont text-base bg-gradient-to-tr from-yellow-500 to-yellow-200 hover:to-yellow-600 border-yellow-500 hover:border-yellow-700  *:
+          <button onClick={()=>{dispatch(addTocart({
+            id:Product.id,
+            title:Product.title,
+            description:Product.description,
+            price:Product.price,
+            category:Product.category,
+            image:Product.image,
+            quantity:1
+          }))}} className='w-full font-titleFont text-base bg-gradient-to-tr from-yellow-500 to-yellow-200 hover:to-yellow-600 border-yellow-500 hover:border-yellow-700  *:
           active:from-yellow-400 active:to-yellow-500 duration-200 py-1.5 rounded-md mt-3'>Add to Cart</button>
             </div>
           </div>

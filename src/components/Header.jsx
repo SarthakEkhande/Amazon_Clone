@@ -5,8 +5,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import HeaderBottom from './HeaderBottom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 
 const Header = () => {
+
+  const Products=useSelector((state)=>state.amazon.Products)
+  console.log(Products);
 
     const[showAll,setshowAll]=useState(false)
 
@@ -15,9 +21,11 @@ const Header = () => {
     <div className='w-full sticky top-0 z-50' >
         <div className='w-full bg-amazon_blue text-white px-4 py-3 flex items-center gap-4'>
        {/* Image Start Here */}
-         <div className='headerHover '>
+         <Link to="/">
+         <  div className='headerHover '>
             <img className='w-24 mt-2' src={logo}  alt='logo'/>
-         </div>
+           </div>
+         </Link>
        {/* Image End Here */}
 
        {/* Deliver Start Here */}
@@ -73,12 +81,17 @@ const Header = () => {
         {/* Orders Ends Here */}
 
          {/* carts Starts Here */}
+            <Link to='cart'>
+                
+              <div className='flex items-start justify-center headerHover relative' >
+                 <ShoppingCartIcon/>
+                 <p className='text-xs font-semibold mt-3 text-whiteText'>Cart <span className='absolute rounded-full flex justify-center items-center p-1 h-4 bg-[#f3a847] text-amazon_blue text-xs top-0 left-6 font-semibold'>
+                  {Products.length > 0  ? Products.length : 0}
+                  </span></p>
+              </div>
 
-         <div className='flex items-start justify-center headerHover relative' >
-            <ShoppingCartIcon/>
-            <p className='text-xs font-semibold mt-3 text-whiteText'>Cart <span className='absolute rounded-full flex justify-center items-center p-1 h-4 bg-[#f3a847] text-amazon_blue text-xs top-0 left-6 font-semibold'> 0</span></p>
-         </div>
 
+            </Link>
            {/* carts Ends Here */}
           
           
