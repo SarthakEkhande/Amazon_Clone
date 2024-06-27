@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { decrementquantity, deleteItem, incrementQuantity, resetCart } from '../redux/amazonslice';
+import { emptyCart } from '../assets/index';
+import { Link } from 'react-router-dom';
+
 
 const AddtoCart = () => {
     const dispatch=useDispatch()
     const Products=useSelector((state)=>state.amazon.Products)
+    // import {motion} from "framer-motion"
     const[totalPrice,settotalPrice]=useState("")
     console.log(Products);
     useEffect(()=>{
@@ -20,7 +24,20 @@ const AddtoCart = () => {
   return (
     <div className='w-full bg-gray-100 p-4'>
         {Products.length===0 ? (
-            <h1>Cart is empty</h1>
+            <div initial={{}} className='flex justify-center items-center gap-4 py-10'>
+                <div>
+                    <img className='w-80 rounded-lg mx-auto' src={emptyCart} alt='emptycart'/>
+                </div>
+                <div className='w-96 p-4 bg-white flex flex-col items-center rounded-md shadow-lg'>
+                <h1 className='font-titleFont text-xl font-bold'>Your Cart is Empty</h1>
+                <Link to="/">
+                <button className='w-full font-titleFont text-base bg-gradient-to-tr from-yellow-500 to-yellow-200 hover:to-yellow-600 border-yellow-500 hover:border-yellow-700  *:
+          active:from-yellow-400 active:to-yellow-500 duration-200 py-1.5 rounded-md mt-3 p-4'>Continue Shopping</button>
+                </Link>
+                </div>
+             
+             
+            </div>
         ):
       <div className='container mx-auto h-auto  grid grid-cols-5 gap-8 '>
          <div className='w-full h-full bg-white px-4 col-span-4 '>

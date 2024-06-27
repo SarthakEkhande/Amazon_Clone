@@ -5,6 +5,8 @@ import { ProductsData } from './api/api';
 import Home from './pages/Home';
 import TopFooter from './components/footer/TopFooter';
 import AddtoCart from './pages/AddtoCart';
+import SignIn from './pages/SignIn';
+import Registration from './pages/Registration';
 
 const Layout = () => {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index loader={ProductsData} element={<Home />} />
         <Route path="/cart" element={<AddtoCart />} />
+        <Route path='/signin' element={<SignIn/>}></Route>
+        <Route path='registration' element={<Registration/>}></Route>
       </Route>
     )
   );
