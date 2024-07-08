@@ -6,6 +6,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { RotatingLines } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
 import { setuserInfo } from "../redux/amazonslice";
+
 const SignIn = () => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -64,7 +65,7 @@ const SignIn = () => {
       navigate('/')
 
       
-    }, 2000);
+    },3000);
     // ...
   })
   .catch((error) => {

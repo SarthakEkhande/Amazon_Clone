@@ -8,6 +8,9 @@ import AddtoCart from './pages/AddtoCart';
 import SignIn from './pages/SignIn';
 import Registration from './pages/Registration';
 import firebaseConfig from './firebase.config';
+import MainProducts from './pages/MainProducts';
+import Favurate from './pages/Favurate';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 const Layout = () => {
   return (
@@ -20,18 +23,21 @@ const Layout = () => {
   );
 };
 
-function App() {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index loader={ProductsData} element={<Home />} />
-        <Route path="/cart" element={<AddtoCart />} />
-        <Route path='/signin' element={<SignIn/>}></Route>
-        <Route path='registration' element={<Registration/>}></Route>
-      </Route>
-    )
-  );
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index loader={ProductsData} element={<Home />} />
+      <Route path="/cart" element={<AddtoCart />} />
+      <Route path='/signin' element={<SignIn/>}></Route>
+      <Route path='/registration' element={<Registration/>}></Route>
+      <Route path='/mainproducts' element={<MainProducts/>}></Route>
+      <Route path='/fav' element={<Favurate/>}></Route>
+      <Route path='/product:id' element={ProductDetailPage}></Route>
+    </Route>
+  )
+);
 
+function App() {
   return (
     <div className="font-bodyFont bg-gray-100">
       <RouterProvider router={router} />

@@ -8,9 +8,10 @@ import HeaderBottom from './HeaderBottom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { GiEternalLove } from "react-icons/gi";
 
 import { getAuth, signOut } from "firebase/auth";
-import { userSignOut } from '../redux/amazonslice';
+import { favitem1, userSignOut } from '../redux/amazonslice';
 // import { userInfo } from 'os';
 
 // const handlelogout=()=>{
@@ -24,6 +25,7 @@ const Header = () => {
   const Products=useSelector((state)=>state.amazon.Products)
   
   const UserInfo=useSelector((state)=>state.amazon.userInfo)
+  const favitem = useSelector((state) => state.amazon.favitem);
   // console.log(UserInfo);
 
   // console.log(Products);
@@ -62,7 +64,7 @@ const Header = () => {
             <LocationOnIcon/>
             <p className='text-sm text-lightText font-light flex flex-col'>
                 Deliver To{" "}
-                 <span className='text-sm font-semibold -mt-1 text-whiteText'>Pune</span></p>
+                 <span className='text-left font-semibold -mt-1 text-whiteText'>Pune</span></p>
          </div>
 
        {/* Deliver End Here */}
@@ -81,6 +83,7 @@ const Header = () => {
                             <li className='py-2'>Wireless Headphones</li>
                             <li className='py-2'>Digital Tvs</li>
                             <li className='py-2'>Computers</li>
+                            <li className='py-2'>Freeze</li>
                         </ul>
                     </div>
                 )
@@ -100,7 +103,8 @@ const Header = () => {
             UserInfo ? (
              
                 <p className='text-sm text-gray-100  font-medium'>
-                 {UserInfo.userName}
+                 
+                 <img className='h-8 w-8 rounded-2xl' src={UserInfo.image}/>
                  </p>
              
             ) :(
@@ -123,6 +127,21 @@ const Header = () => {
             <p className='text-sm font-semibold -mt-1 text-whiteText'> & Orders</p>
         </div>
         {/* Orders Ends Here */}
+      
+     {/*} fav starts here*/}
+     <Link to='/fav'>
+      <div className='flex items-start justify-center relative headerHover'>
+        <GiEternalLove />
+        <p className='text-xs font-semibold mt-3 text-white'>
+          Fav
+          <span className='absolute rounded-full flex justify-center items-center p-1 h-4 bg-[#f3a847] text-amazon_blue text-xs top-0 left-6 font-semibold'>
+            {favitem.length > 0 ? favitem.length : 0}
+          </span>
+        </p>
+      </div>
+    </Link>
+     
+     {/*} fav ends here*/}
 
          {/* carts Starts Here */}
             <Link to='cart'>
@@ -153,7 +172,7 @@ const Header = () => {
 
 
         </div>
-        <HeaderBottom/>
+        <HeaderBottom/>   
     </div>
   )
 }

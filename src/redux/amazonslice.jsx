@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
     Products:[],
     userInfo:null,
+    favitem:[]
 }
 
 export const amazonSlice=createSlice({
@@ -20,6 +21,26 @@ export const amazonSlice=createSlice({
           
 
         },
+        favitem1:(state,action)=>{
+            const item= state.favitem.find((item)=>item.id === action.payload.id)
+            if(item){
+                item.quantity += action.payload.quantity
+            }
+            else{
+                state.favitem.push(action.payload)
+            }
+
+        },
+        removefavitem:(state,action)=>{
+             
+            state.favitem=state.favitem.filter((item)=>item.id!==action.payload)    
+        },
+        resetfavitem:(state)=>{
+            state.favitem=[]
+
+        },
+      
+      
       
         incrementQuantity:(state,action)=>{
                const item=state.Products.find((item)=>item.id===action.payload)
@@ -52,5 +73,5 @@ export const amazonSlice=createSlice({
     }
 })
 
-export const{addTocart, deleteItem, resetCart, incrementQuantity, decrementquantity,setuserInfo, userSignOut}=amazonSlice.actions
+export const{addTocart, deleteItem, removefavitem, resetCart, resetfavitem, incrementQuantity, decrementquantity,setuserInfo, userSignOut, favitem1}=amazonSlice.actions
 export default amazonSlice.reducer

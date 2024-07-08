@@ -45,7 +45,7 @@ const TopFooter = () => {
       </div>
 
       
-      <div class="mt-8 text-center">
+      <div class="mt-10 text-center">
         <p class="text-sm">&copy; 2024 Amazon Clone. All rights reserved.</p>
       </div>
     </div>

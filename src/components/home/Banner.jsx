@@ -38,15 +38,15 @@ const Banner = () => {
           customPaging: i => (
             <div
               style={{
-                width: "30px",
+                width: "40px",
                 border: "1px blue #f3a847",
-                height:"30px",
-                borderRadius:"50%",
+                height:"40px",
+                borderRadius:"80%",
                 display:"flex",
                 alignItems:"center",
                 justifyContent:"center",
-                color:"white",
-                background:"#131921",
+                color:"yellow",
+                background:"black",
                 padding:"8px 0",
                 cursor:"pointer"
               }}
